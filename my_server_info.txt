@@ -1,0 +1,51 @@
+public id: 54.212.226.142
+
+ssh -i python_black_belt.pem ubuntu@54.212.226.142
+
+CREATE DATABASE python_black_belt_2
+CREATE USER justin WITH PASSWORD 'warriors';
+GRANT ALL PRIVILEGES ON DATABASE python_black_belt_2 TO justin;
+
+/home/ubuntu
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'python_black_belt_2',
+        'USER': ‘justin’,
+        'PASSWORD': 'warriors',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+gunicorn --bind 0.0.0.0:8000 main.wsgi:application
+
+
+description "Gunicorn application server handling my_site"
+start on runlevel [2345]
+stop on runlevel [!2345]
+respawn
+setuid ubuntu
+setgid www-data
+chdir /home/ubuntu/my_site
+exec product_catalog_env/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/my_site/main.sock main.wsgi:application
+
+sudo vim /etc/nginx/sites-available/my_site
+
+server {
+    listen 80;
+    server_name 54.212.226.142;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/ubuntu/my_site;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/my_site/main.sock;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/my_site /etc/nginx/sites-enabled

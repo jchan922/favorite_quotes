@@ -1,0 +1,14 @@
+html {
+    width: 1336px;
+    margin: 0px auto;
+    font-family: helvetica;
+}
+
+h1 {
+    margin-top: 25px;
+    text-align: center;
+ }
+
+.red {
+    color: red;
+}

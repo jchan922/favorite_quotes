@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static '/belt_exam2/css/user.css' %}" media="screen" title="no title">
+        <title>Quotes</title>
+    </head>
+    <body>
+        <a href="/quotes">Home</a>
+        <a href="/logout">Logout</a>
+
+        <h2>Posts By {{user_name.name}}</h2>
+        <h2>Count: {{user_post_count}}</h2>
+
+        {% for quote in all_users_posts %}
+        <p><span class="red">{{quote.author}}</span> : "{{quote.quote}}"</p>
+        {% endfor %}
+
+    </body>
+</html>

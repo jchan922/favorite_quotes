@@ -1,0 +1,66 @@
+html {
+    width: 1336px;
+    margin: 0px auto;
+    font-family: helvetica;
+}
+
+h1 {
+    margin-top: 25px;
+    text-align: center;
+ }
+
+h2 {
+     background-color: yellow;
+     margin-top: 25px;
+     text-align: left;
+  }
+
+.bold {
+    font-weight: bold;
+}
+
+p {
+    margin: 5px 0px 5px 0px;
+}
+
+.buttons{
+    display: block;
+    color: red;
+    margin-top: 0px;
+}
+
+#all_quotes {
+    display: inline-block;
+    width: 325px;
+    border: 1px solid black;
+}
+
+#fav_quotes {
+    display: inline-block;
+    width: 325px;
+    vertical-align: top;
+    border: 1px solid black;
+}
+
+#add_quote {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+    width: 545px;
+    text-align: center;
+}
+
+    label {
+        display: block;
+    }
+
+    input {
+        display: block;
+        width: 500px;
+        margin-bottom: 10px;
+        margin-left: 15px;
+    }
+
+    #input_quote {
+        display: block;
+    }

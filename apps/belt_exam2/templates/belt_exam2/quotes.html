@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static '/belt_exam2/css/quotes.css' %}" media="screen" title="no title">
+        <title>Quotes</title>
+    </head>
+    <body>
+        <a href="/logout">Logout</a>
+
+        <h1>Quotes</h1>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div id="all_quotes">
+            <h2>All Quotes</h2>
+            {% for quote in all_quotes %}
+            <p><span class="bold">{{quote.author}}</span> : "{{quote.quote}}"</p>
+            <p>Posted by: <a href="/users/{{quote.user.id}}">{{quote.user.name}}</a></p>
+            <a class="buttons" href="/users/favorite/{{quote.id}}">Favorite</a>
+            {% endfor %}
+        </div>
+
+        <div id="fav_quotes">
+            <h2>Favorite Quotes</h2>
+            {% for fav_quote in current_user_favorites %}
+            <p>
+                <span class="bold">{{fav_quote.author}}</span> : {{fav_quote.quote}}
+                <a class="buttons" href="/users/remove_favorite/{{fav_quote.id}}"> Remove From Favorites</a>
+            </p>
+            {% endfor %}
+        </div>
+
+        <div id="add_quote">
+            <form class="" action="/add_quote" method="POST">
+                <h3>Add a Quote</h3>
+                {% csrf_token %}
+                <label>Author of Quote: <input type="text" name="author"></label>
+                <label>Quote: <input id="input_quote" name="quote" rows="3" cols="40"></input></label>
+                <label><input type="submit" value="ADD"></label>
+            </form>
+        </div>
+    </body>
+</html>
